@@ -25,10 +25,7 @@ const refreshLeaderboard = async () => {
     return;
   }
   const {data} = leaderboardResponse;
-  
-  debugger
   const sortedMembers = Object.values(data.members).sort((a,b) => a.global_score - b.global_score);
-
   const ranks = [...Array(sortedMembers.length).keys()].map(rank => `#${rank+1}`);
   const usernames = sortedMembers.map(member => member.name);
   const globalScores = sortedMembers.map(member => member.global_score);
