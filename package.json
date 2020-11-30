@@ -19,7 +19,9 @@
   "homepage": "https://github.com/carlank/aocbot#readme",
   "dependencies": {
     "axios": "^0.21.0",
+    "cron": "^1.8.2",
     "discord.js": "^12.5.1",
+    "dom-parser": "^0.1.6",
     "dotenv": "^8.2.0"
   }
 }
