@@ -49,8 +49,8 @@ const refreshLeaderboard = async () => {
 const getNewProblem = async () => {
   console.log('GETTING NEWEST PROBLEM');
   const today = new Date();
-  const day = 1//today.getUTCDate();
-  const year = 2019//today.getFullYear();
+  const day = today.getUTCDate();
+  const year = today.getFullYear();
   const uri = `https://adventofcode.com/${year}/day/${day}`;
   const problemResponse = await axios.get(uri);
   if(problemResponse.status !== 200){
@@ -117,10 +117,10 @@ client.on('ready', async () => {
   console.log('READY');
 
   leaderboardChannel = await client.channels.fetch(process.env.LEADERBOARD_CHANNEL_ID);
-  // client.setInterval(refreshLeaderboard, delay);
-  // 
+  client.setInterval(refreshLeaderboard, delay);
+   
   problemChannel = await client.channels.fetch(process.env.PROBLEM_CHANNEL_ID);
-  getNewProblem();
+  const problemJob = new CronJob('00 00 00 1-25 12', getNewProblem, null, true, 'America/New_York');
 });
 
 client.login();
