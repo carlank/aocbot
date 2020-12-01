@@ -116,7 +116,7 @@ client.on('ready', async () => {
   client.setInterval(refreshLeaderboard, delay);
    
   problemChannel = await client.channels.fetch(process.env.PROBLEM_CHANNEL_ID);
-  const problemJob = new CronJob('00 00 00 01-25 11 *', getNewProblem, null, true, 'America/New_York');
+  const problemJob = new CronJob('00 01 00 01-25 11 *', getNewProblem, null, true, 'America/New_York');
 });
 
 client.on('message', message => {
