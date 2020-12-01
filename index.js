@@ -27,7 +27,7 @@ const refreshLeaderboard = async () => {
     return;
   }
   const {data} = leaderboardResponse;
-  const sortedMembers = Object.values(data.members).sort((a,b) => a.global_score - b.global_score);
+  const sortedMembers = Object.values(data.members).sort((a,b) => a.local_score - b.local_score);
   const ranks = [...Array(sortedMembers.length).keys()].map(rank => `#${rank+1}`);
   const usernames = sortedMembers.map(member => member.name);
   const globalScores = sortedMembers.map(member => member.global_score);
@@ -39,9 +39,9 @@ const refreshLeaderboard = async () => {
     .addFields(
       { name: 'Rank', value: ranks, inline: true },
       { name: 'Name', value: usernames, inline: true },
-      { name: 'Score', value: globalScores, inline: true },
+      { name: 'Score', value: localScores, inline: true },
       // { name: 'Local Score', value: localScores, inline: true },
-      // { name: 'Stars', value: stars, inline: true }
+      { name: 'Stars', value: stars, inline: true }
     );
   leaderboardChannel.send(embed);
 }
