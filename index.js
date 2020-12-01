@@ -76,7 +76,6 @@ const getNewProblem = async (day = (new Date()).getUTCDate(), year = (new Date()
         case 'li':
           return acc + '  -  ' + parse(node, inCode);
         case 'a':
-          console.log(node) 
           return acc + `[${parse(node, inCode)}](${node.attributes.find(a=>a.name==='href').value})`;
         case 'pre':
           return acc + '\n' + parse(node, inCode);
@@ -125,9 +124,15 @@ client.on('message', message => {
     switch(message.content){
       case 'aoc-refresh':
         refreshLeaderboard();
-        break
+        break;
       case 'aoc-problems':
-
+        problemChannel.bulkDelete(100);
+        const date = Math.min(new Date().getUTCDate(), 25);
+        for(let i = 1; i <= date; i++){
+          let day = i;
+          setTimeout(() => getNewProblem(day, 2019), 1000 * day);
+        }
+        break;
     }
   }
 });
