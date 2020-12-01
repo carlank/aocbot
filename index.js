@@ -27,11 +27,11 @@ const refreshLeaderboard = async () => {
     return;
   }
   const {data} = leaderboardResponse;
-  const sortedMembers = Object.values(data.members).sort((a,b) => a.local_score - b.local_score);
+  const sortedMembers = Object.values(data.members).sort((a,b) => b.local_score - a.local_score);
   const ranks = [...Array(sortedMembers.length).keys()].map(rank => `#${rank+1}`);
   const usernames = sortedMembers.map(member => member.name);
   const globalScores = sortedMembers.map(member => member.global_score);
-  const localScores = sortedMembers.map(member => member.local_score);
+  const scoreStars = sortedMembers.map(member => member.local_score + ' | ' + member.stars);
   const stars = sortedMembers.map(member => member.stars);
 
   const embed = new MessageEmbed()
@@ -39,9 +39,9 @@ const refreshLeaderboard = async () => {
     .addFields(
       { name: 'Rank', value: ranks, inline: true },
       { name: 'Name', value: usernames, inline: true },
-      { name: 'Score', value: localScores, inline: true },
+      { name: 'Score | Stars', value: scoreStars, inline: true },
       // { name: 'Local Score', value: localScores, inline: true },
-      { name: 'Stars', value: stars, inline: true }
+      // { name: 'Stars', value: stars, inline: true }
     );
   leaderboardChannel.send(embed);
 }
