@@ -130,7 +130,7 @@ client.on('message', message => {
         const date = Math.min(new Date().getUTCDate(), 25);
         for(let i = 1; i <= date; i++){
           let day = i;
-          setTimeout(() => getNewProblem(day, 2019), 1000 * day);
+          setTimeout(() => getNewProblem(day, 2020), 1000 * day);
         }
         break;
     }
